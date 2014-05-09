@@ -1,12 +1,26 @@
 ErrorDocument 403 "403 You don't have clearance"
 ErrorDocument 404 "404 I lost it!"
 ErrorDocument 500 "500 Stupid failure"
+
+php_value display_errors 1
+php_value error_reporting -1
+php_value expose_php 0
+
 RewriteEngine On
 RewriteBase /
-RewriteRule ^cube/?$ index.php?cube [L]
-RewriteRule ^connect/([0-9]+)/([0-9]+)/([A-Za-z0-9-_=]*)$ index.php?connectcheck&id=$1&guid=$2&nick=$3 [L]
-RewriteRule ^reg(?:ister)?/([0-9]+)/([0-9]{1,5})/?$$ index.php?register&port=$2&proto=$1 [L]
-RewriteRule ^auth/([0-9]+)/([0-9a-f]+)/?$ index.php?authchal&id=$1&ans=$2 [L]
-RewriteRule ^auth/([0-9]+)/?$ index.php?authreq&id=$1 [L]
-RewriteRule ^json/?$ index.php?json [L]
-RewriteRule ^bans/?$ index.php?bans [L]
+# client handles
+RewriteRule ^cube/(update|list|version)/([0-9]+)/([0-9]+) client_cube.php?act=$1&cdefs=$2&guid=$3 [L]
+RewriteRule ^cube/(update|list|version) client_cube.php?act=$1 [L]
+RewriteRule ^cube client_cube.php?act=update [L]
+RewriteRule ^bans client_bans.php [L]
+# RewriteRule ^json client_json.php [L]
+
+# server handles
+RewriteRule ^reg(?:ister)?/([0-9]+)/([0-9]{1,5})/([0-9]+)/?$ server_register.php?proto=$1&port=$2&guid=$3 [L]
+#RewriteRule ^reg(?:ister)?/([0-9]+)/([0-9]{1,5})/?$ server_register.php?proto=$1&port=$2 [L]
+RewriteRule ^connect/([0-9]+)/([0-9]+)/?$ auth_connect.php?ip=$1&guid=$2 [L]
+RewriteRule ^a2r/([0-9]{1,5})/([0-9]+)/([0-9a-zA-Z]+)/?$ auth_gen.php?port=$1&id=$2&user=$3 [L]
+RewriteRule ^a2v/([0-9]{1,5})/([0-9]+)/([0-9a-f]+)/?$ auth_verify.php?port=$1&id=$2&hash=$3 [L]
+
+# ping results
+RewriteRule ^api/([a-zA-Z]+)/([$A-Za-z_][0-9A-Za-z_]*)/?$ query.php?q=$1&c=$2 [L]

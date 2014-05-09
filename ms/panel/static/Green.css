@@ -1,0 +1,340 @@
+/* ------------------------------------------------------
+
+   AUTHOR           :  	Erwin Aligam
+   WEBSITE          :   http://www.styleshout.com/
+   TEMPLATE NAME    : 	Stylevantage - orange
+   TEMPLATE CODE    : 	S-0001
+   VERSION          :   1.1
+   LAST DATE MOD    :   January 21, 2010
+
+ --------------------------------------------------------- */
+
+/* -------------------------------------------------------
+   HTML ELEMENTS
+---------------------------------------------------------- */
+
+/* top elements */
+* { margin: 0; padding: 0; outline: 0; }
+
+body {
+	margin: 0; padding: 0;
+	font: 12px/160% 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+	background: url(headerbg-green.gif) repeat-x;
+	color: #666666;	
+	text-align: center;		
+}
+
+/* links */
+a:link, a:visited {
+	background: inherit;
+	color: #72A545;
+    text-decoration: none;
+}
+a:hover {
+	background: inherit;
+	color: #006699;
+}
+
+/* headers */
+h1, h2, h3 {
+	font: bold 1em 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+	color: #555;
+}
+h1 { font-size: 1.4em; }
+h2 { font-size: 1.3em; }
+h3 { font-size: 1.2em; font-weight: bold; }
+
+#main h1, #rightbar h1 {
+	padding: 10px 0 5px 5px;
+	margin: 0 0 10px 10px;
+   	border-bottom: 1px solid #f2f2f2;
+}	
+#sidebar h1 {
+	padding: 10px 0px 5px 5px;
+	margin: 0 0 5px 0;
+}
+
+p, h1, h2, h3 {
+	margin: 10px 15px;
+}
+ul, ol {
+	margin: 10px 30px;
+	padding: 0 15px;	
+	color: #72A545;
+}
+ul span, ol span {
+	color: #666666;
+}
+
+/* images */
+img {
+	background: #FAFAFA;
+    border: 1px solid #E4E4E4;
+	padding: 8px;
+}
+img.float-right {
+  margin: 5px 0px 5px 15px;  
+}
+img.float-left {
+  margin: 5px 15px 5px 0px;
+}
+
+code {
+  margin: 5px 0;
+  padding: 15px 10px;
+  text-align: left;
+  display: block;
+  overflow: auto;  
+  font: 500 1em/1.5em 'Lucida Console', 'courier new', monospace;
+  /* white-space: pre; */
+  background: #FAFAFA;
+  border: 1px solid #f2f2f2;  
+  border-left: 3px solid #72A545;
+}
+acronym {
+  cursor: help;
+  border-bottom: 1px solid #777;
+}
+blockquote {
+	margin: 15px;
+ 	padding: 5px 5px 5px 32px;
+  	background: #FAFAFA url(quote.gif) no-repeat 5px 10px !important; 
+	background-position: 8px 10px;
+	border: 1px solid #f2f2f2; 
+	border-left: 3px solid #72A545;
+	font-weight: bold; 
+}
+
+/* form elements */
+form {
+	margin:10px; padding: 5px;
+	border: 1px solid #f2f2f2; 
+	background-color: #FAFAFA; 
+}
+label {
+	display:block;
+	font-weight:bold;
+	margin:5px 0;
+}
+input {
+	padding: 4px 5px;
+	border:1px solid #eee;
+	font-size: 1em;
+	color:#777;
+}
+textarea {
+	width:350px;
+	padding:4px 5px;
+	font-size: 1em;
+	border:1px solid #eee;
+	height:100px;
+	display:block;
+	color:#777;
+}
+input.button {
+	margin: 0;
+	font: bold 1em Arial, Sans-serif; 
+	border: 1px solid #CCC;
+	background: #FFF;
+	padding: 5px;
+	color: #333;	
+}
+
+/* search form */
+form.searchform {
+	background: transparent;
+	border: none;
+	margin: 0; padding: 0;	
+}
+form.searchform input.textbox { 
+	margin: 0; 
+	width: 120px;
+	border: 1px solid #CCC; 
+	background: #FFF;
+	color: #333; 
+	vertical-align: top;
+}
+form.searchform input.button {
+	width: 55px;
+	vertical-align: top;
+    padding: 2px 5px;
+}
+
+/* ----------------------------------
+    Layout
+------------------------------------- */
+#wrap {
+	margin: 0 auto;
+    width: 850px;
+	text-align: left;		
+	background: #FFF;	
+}
+#content-wrap {
+	clear:both;
+    margin: 0; padding:0;
+	width: 850px;	
+}
+
+/* header */
+#header {
+	position: relative;
+	background: url(headerbg-green.gif) repeat-x 0 0;
+	height: 84px;	
+}
+#header h1#logo {
+	position: absolute;
+	margin: 0; padding: 0;
+	font: bold 3.5em 'Trebuchet MS', Arial, Sans-serif;
+	letter-spacing: -3px;
+	color: #CCC;
+	text-transform: lowercase;
+	/* change the values of top and Left to adjust the position of the logo*/
+	top: 0; left: 5px;	
+}
+#header h2#slogan {
+	position: absolute;
+	margin: 0; padding: 0;
+	font: bold 11px 'Trebuchet MS', Arial, Sans-serif;
+	text-transform: none;
+	color: #FFF;
+	/* change the values of top and Left to adjust the position of the slogan*/
+	top: 48px; left:70px;
+}
+#header .searchform {
+	position: absolute;
+	top: 5px; right: 3px;
+}
+
+/* main column */
+#main {
+	float: left;
+   	margin-left: 15px;
+	padding: 10px 0 0 5px;
+	width: 54%;	
+	border-left: 1px solid #f2f2f2;
+}
+
+.post-footer {
+	background-color: #FAFAFA;
+	padding: 5px; margin-top: 20px;
+	font-size: .9em;
+	border: 1px solid #f2f2f2;
+}
+.post-footer .date {
+	background: url(clock.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer .comments {
+	background: url(comment.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer .readmore {
+	background: url(page.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+
+/* sideabar */
+#sidebar {
+	float: left;
+	width: 21%;
+	margin: 0;	padding: 10px 0 0 0;
+	display: inline;
+}
+#sidebar ul.sidemenu {
+	list-style: none;
+	text-align: left;
+	margin: 0 0 8px 0;	
+	padding: 0;
+	text-decoration: none;
+    font-size: .9em;
+    border-top: 1px solid #EFF0F1;
+}
+#sidebar ul.sidemenu li {
+	border-bottom: 1px solid #EFF0F1;
+	background: url(arrow.gif) no-repeat 2px 9px;
+	padding: 3px 5px 3px 18px;
+}
+
+* html body #sidebar ul.sidemenu li { height: 1%; }
+
+#sidebar ul.sidemenu a {
+	font-weight: bold;
+	background-image: none;
+	text-decoration: none;	
+}
+
+/* rightbar */
+#rightbar {
+	float: right;
+	width: 21%;
+	padding: 10px 0 0 0;
+    margin: 0;
+}
+
+/* footer */
+#footer {
+	clear: both;
+	background: #FFF url(footerbg.gif) repeat-x left top;
+	border-top: 1px solid #F2F2F2;
+	text-align: center;	
+	height: 80px;
+    font-size: .9em;
+}
+
+#footer a { text-decoration: none; }
+
+/* menu */
+#menu {
+	clear: both;
+	margin: 0; padding: 0;
+}
+#menu ul {
+	position: relative; 
+	bottom: 4px;
+	margin: 0; padding: 0;	
+	float: left;
+	font: bold 1.1em 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+	width: 850px;/* 775px; */
+	border: 1px solid #808080;
+	border-width: 0 0 4px 0;	
+	list-style: none;
+}
+#menu ul li{
+	display: inline;	
+}
+#menu ul li a {	
+	position: relative; bottom: -4px;
+	float: left;
+	color: #808080;
+	padding: 5px 10px;
+	text-decoration: none;
+	background: white url(menudivide.gif) repeat-y right top; 
+	border-bottom: 4px solid #808080; 	
+}
+#menu ul li a:hover{
+	color: black;
+	background-color: #F3F3F3; 
+	border-bottom: 4px solid #32CD32;
+}
+#menu ul li#current a{
+	color: #333;
+	background-color: #F3F3F3; 
+	border-bottom: 4px solid #32CD32;
+}
+
+/* Alignment classes */
+.float-left   { float: left;}
+.float-right  { float: right; }
+.align-left   { text-align: left; }
+.align-right  { text-align: right; }
+.align-center { text-align: center;	}
+
+/* display classes */
+.clear  { clear: both; }
+.block  { display: block; }
+.hide   { display: none; }	
+.green  { color: #32CD32; }
+
+
+
+
