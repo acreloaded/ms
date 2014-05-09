@@ -1,0 +1,28 @@
+ErrorDocument 403 "403 You don't have clearance"
+ErrorDocument 404 "404 I lost it!"
+ErrorDocument 500 "500 Stupid failure"
+
+# php options
+php_value display_errors 1
+php_value error_reporting -1
+php_value expose_php 0
+
+RewriteEngine On
+RewriteBase /ms
+
+# client handles
+RewriteRule ^cube/(update|list|version)/([0-9]+)/([0-9]+)$ client_cube.php?act=$1&cdefs=$2&guid=$3 [L]
+RewriteRule ^cube/(update|list|version)$ client_cube.php?act=$1 [L]
+RewriteRule ^cube$ client_cube.php?act=list [L]
+RewriteRule ^bans$ client_bans.php [L]
+
+# server handles
+RewriteRule ^reg/([0-9]+)/([0-9]{1,5})/([0-9]+)$ server_register.php?proto=$1&port=$2&guid=$3 [L]
+#RewriteRule ^reg/([0-9]+)/([0-9]{1,5})$ server_register.php?proto=$1&port=$2 [L]
+RewriteRule ^con/([0-9]{1,5})/([a-f0-9.:%]+)/([0-9]+)/([0-9]+)/([0-9]+)$ auth_connect.php?port=$1&ip=$2&guid=$3&id=$4&user=$5 [L]
+RewriteRule ^con/([0-9]{1,5})/([a-f0-9.:%]+)/([0-9]+)$ auth_connect.php?port=$1&ip=$2&guid=$3 [L]
+RewriteRule ^ver/([0-9]{1,5})/([0-9]+)/([0-9a-f]+)$ auth_verify.php?port=$1&id=$2&hash=$3 [L]
+RewriteRule ^register server_update.txt [L] # phase-out old <= 2.5.x servers
+
+# ping results
+RewriteRule ^api/([a-zA-Z]+)/([$A-Za-z_][0-9A-Za-z_]*)/?$ query.php?q=$1&c=$2 [L]
