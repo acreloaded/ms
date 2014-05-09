@@ -1,4 +1,4 @@
--- AssaultCube Reloaded Masterserver Tables
+-- AssaultCube Reloaded Master-Server Tables
 
 CREATE TABLE IF NOT EXISTS `cubems_auth` (
   `ip` int(10) unsigned NOT NULL DEFAULT '0',
