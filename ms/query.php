@@ -31,7 +31,7 @@ case 'json':
 		if ( isset( $settings['translations'][$host] ) )
 			$host = $settings['translations'][$host];
 		// add to list
-		$servers[] = array( $host, (int)$port );
+		$servers[] = "$host:$port";
 	}
 	$json = array( 'servers' => $servers );
 	break;
