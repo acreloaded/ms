@@ -26,3 +26,4 @@ RewriteRule ^register server_update.txt [L] # phase-out old <= 2.5.x servers
 
 # ping results
 RewriteRule ^api/([a-zA-Z]+)/([$A-Za-z_][0-9A-Za-z_]*)/?$ query.php?q=$1&c=$2 [L]
+RewriteRule ^api/([a-zA-Z]+)/?$ query.php?q=$1 [L]
