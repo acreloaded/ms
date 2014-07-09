@@ -33,10 +33,10 @@ case 'json':
 		// add to list
 		$servers[] = array( $host, (int)$port );
 	}
-	$json = array( 'servers'=>$servers );
+	$json = array( 'servers' => $servers );
 	break;
-	// unknown
 default:
+	// unknown
 	$json = array( 'error' => 'invalid query' );
 	break;
 }
