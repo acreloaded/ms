@@ -41,7 +41,7 @@ if ( $_GET['act'] == 'version' || $_GET['act'] == 'update' ) {
 // Provide server list
 if ( $_GET['act'] == 'list' || $_GET['act'] == 'update' ) {
 	// total number
-	$total = $cache->read( "acrms_servs" );
+	$total = (int)$cache->read( "acrms_servs" );
 	// displayed number
 	$servs = 0;
 

@@ -15,7 +15,7 @@ case 'servers':
 			"acrms_servers", "COUNT(*) As n", "failures < $sockcap AND proto >= {$settings['minprotocol']}"
 		) );
 	// write output
-	$json = array( 'active' => $q['n'], 'total' => $cache->read( "acrms_servs" ) );
+	$json = array( 'active' => $q['n'], 'total' => (int)$cache->read( "acrms_servs" ) );
 	$json['hidden'] = $json['total'] - $json['active'];
 	break;
 

@@ -23,8 +23,8 @@ $settings['autoapprove'] = true; // servers can be registered
 $settings['check-socket'] = 0; // check server with UDP sockets or not (maximum failures)
 $settings['check-socket-force'] = false; // force a check if the above is 0
 
-$settings['minprotocol'] = 100; // enforced
-$settings['currentgame'] = 20600; // display only
+$settings['minprotocol'] = 138; // enforced
+$settings['currentgame'] = 10000; // display only
 
 // IP lists
 // array(left, right[, reason]),
@@ -54,9 +54,9 @@ function ip_in_list( $addr, $list ) {
 // Serverlist settings
 $settings['translations'] = array(
 	// ip => domain
-	"173.224.216.229" => "play.acr.victorz.ca",
+	"159.203.33.125" => "play.acr.victorz.ca",
 );
 $settings['weights'] = array(
 	// ip:port => weight
-	"173.224.216.229:28770" => 1000,
+	"159.203.33.125:28770" => 1337, // 1000 is enough
 );
