@@ -9,8 +9,8 @@ if ( !filter_var($cip_raw, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ) {
 $cip_raw = inet_pton( $cip_raw );
 // ignore $_GET['guid32']
 
-$aid = isset( $_GET['id'] ) ? (int)( $_GET['id'] ) : 0;
-$auser = isset( $_GET['user'] ) ? (int)( $_GET['user'] ) : 0;
+$aid = isset( $_GET['i'] ) ? (int)( $_GET['i'] ) : 0;
+$auser = isset( $_GET['u'] ) ? (int)( $_GET['u'] ) : 0;
 
 // check bans...
 $verdict = '*a';
