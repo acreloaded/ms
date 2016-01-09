@@ -2,7 +2,7 @@
 // Load MyBB global scripts
 define( "IN_MYBB", 1 );
 define( "NO_ONLINE", 1 );
-require_once "../forum/global.php";
+require_once "../global.php";
 
 // Report errors
 error_reporting( E_ALL );
