@@ -12,11 +12,11 @@ function acrms_info() {
 		"name"          => "ACR Master-Server",
 		"description"   => "The ACR Master-Server is now integrated into MyBB!",
 		"website"       => "http://acr.victorz.ca",
-		"author"        => "Victor (AssaultCube Reloaded Task Force)",
+		"author"        => "Victor",
 		"authorsite"    => "http://victorz.ca",
 		"version"       => "1.0.0",
-		//"guid"          => "6075380637e266aecd9b00a3aa99ce04",
-		"compatibility" => "16*",
+		"guid"          => "", // 6075380637e266aecd9b00a3aa99ce04
+		"compatibility" => "1*",
 	);
 }
 
