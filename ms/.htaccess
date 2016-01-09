@@ -11,23 +11,21 @@ RewriteEngine On
 RewriteBase /ms
 
 # Master-Server v1.3 endpoints
-#RewriteRule ^([crav])$ ms_$1.php [L]
+RewriteRule ^([crav])$ ms_$1.php [L]
 
 # Legacy v1.2 endpoints
 # client handles
-RewriteRule ^cube/(update|list|version)/([0-9]+)/([0-9]+)$ ms_c.php?act=$1&cdefs=$2&guid=$3 [L]
-RewriteRule ^cube/(update|list|version)$ ms_c.php?act=$1 [L]
-RewriteRule ^cube$ ms_c.php?act=list [L]
+RewriteRule ^cube ms_c.php [L]
 
 # server handles
-RewriteRule ^reg/([0-9]+)/([0-9]{1,5})/([0-9]+)$ ms_r.php?proto=$1&port=$2&guid=$3 [L]
-#RewriteRule ^reg/([0-9]+)/([0-9]{1,5})$ ms_r.php?proto=$1&port=$2 [L]
-RewriteRule ^con/([0-9]{1,5})/([a-f0-9.:%]+)/([0-9]+)/([0-9]+)/([0-9]+)$ ms_a.php?port=$1&ip=$2&guid=$3&id=$4&user=$5 [L]
-RewriteRule ^con/([0-9]{1,5})/([a-f0-9.:%]+)/([0-9]+)$ ms_a.php?port=$1&ip=$2&guid=$3 [L]
-RewriteRule ^ver/([0-9]{1,5})/([0-9]+)/([0-9a-f]+)$ ms_v.php?port=$1&id=$2&hash=$3 [L]
+RewriteRule ^reg/(\d+)/(\d{1,5})/(\d+)$ ms_r.php?v=$1&p=$2&guid32=$3 [L]
+RewriteRule ^reg/(\d+)/(\d{1,5})$ ms_r.php?v=$1&p=$2 [L]
+RewriteRule ^con/(\d{1,5})/([\d.]+)/(\d+)/(\d+)/(\d+)$ ms_a.php?p=$1&a=::ffff:$2&guid32=$3&i=$4&u=$5 [L]
+RewriteRule ^con/(\d{1,5})/([\d.]+)/(\d+)$ ms_a.php?p=$1&a=::ffff:$2&guid32=$3 [L]
+RewriteRule ^ver/(\d{1,5})/(\d+)/([\da-f]+)$ ms_v.php?p=$1&i=$2&a=$3&legacy [L]
 RewriteRule ^register server_update.txt [L] # phase-out old <= 2.5.x servers
 
 # Extra endpoints
 RewriteRule ^bans$ extra_bans.php [L]
-RewriteRule ^api/([a-zA-Z]+)/([$A-Za-z_][0-9A-Za-z_]*)/?$ extra_query.php?q=$1&c=$2 [L]
-RewriteRule ^api/([a-zA-Z]+)/?$ extra_query.php?q=$1 [L]
+RewriteRule ^api/([a-zA-Z]+)/([$A-Za-z_][0-9A-Za-z_]*)/?$ extra_query.php?q=$1&c=$2 [L,QSA]
+RewriteRule ^api/([a-zA-Z]+)/?$ extra_query.php?q=$1 [L,QSA]

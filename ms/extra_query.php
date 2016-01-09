@@ -1,48 +1,60 @@
 <?php
-include "init.php";
+include 'init.php';
 
-// JSONP
-if ( isset( $_GET['c'] ) ) echo $_GET['c'].'(';
+// JSONP start
+if ( isset( $_GET['c'] ) ) {
+	echo $_GET['c'].'(';
+}
 
-// what do they want?
-if ( !isset( $_GET['q'] ) )
+// Ensure there is a query
+if ( !isset( $_GET['q'] ) ) {
 	$_GET['q'] = '';
+}
+
+// Query type: what do they want?
 switch ( $_GET['q'] ) {
+// Server count
 case 'servers':
-	// number of servers
 	$sockcap = $settings['check-socket'] ? $settings['check-socket'] : 255;
 	$q = $db->fetch_array( $db->simple_select(
 			"acrms_servers", "COUNT(*) As n", "failures < $sockcap AND proto >= {$settings['minprotocol']}"
 		) );
-	// write output
+	// Write output
 	$json = array( 'active' => $q['n'], 'total' => (int)$cache->read( "acrms_servs" ) );
 	$json['hidden'] = $json['total'] - $json['active'];
 	break;
 
+// JSON server list
 case 'json':
-	// server list
+	$servers = array();
+
 	$sockcap = $settings['check-socket'] ? $settings['check-socket'] : 255;
 	$q = $db->simple_select( "acrms_servers", "ip,port", "failures < $sockcap AND proto >= {$settings['minprotocol']}" );
-	$servers = array();
 	while ( $r = $db->fetch_array( $q ) ) {
 		$host = $r['ip'];
 		$port = $r['port'];
-		// hostname subsitution
+		// Substitute hostname
 		if ( isset( $settings['translations'][$host] ) )
 			$host = $settings['translations'][$host];
-		// add to list
+		// Add to list
 		$servers[] = "$host:$port";
 	}
-	$json = array( 'servers' => $servers );
+
+	$counts = array( 'active' => count($servers) );
+
+	$json = array( 'servers' => $servers, 'count' => $counts );
 	break;
+
+// Unknown query
 default:
-	// unknown
 	$json = array( 'error' => 'invalid query' );
 	break;
 }
 
-// write the JSON output
+// Write the JSON output
 echo json_encode( $json ); // (object)
 
-// JSONP
-if ( isset( $_GET['c'] ) ) echo ')';
+// JSONP end
+if ( isset( $_GET['c'] ) ) {
+	echo ')';
+}

@@ -1,24 +1,26 @@
 <?php
-include "init.php";
+include 'init.php';
 
-$ip = preg_replace( "#[^a-f0-9.:%/]#", "", strtolower( get_ip() ) );
-$port = isset( $_GET['port'] ) ? (int)( $_GET['port'] ) : 0;
-$proto = isset( $_GET['proto'] ) ? (int)( $_GET['proto'] ) : 0;
-$guid = isset( $_GET['guid'] ) ? (int)( $_GET['guid'] ) : 0;
+$ip = preg_replace( '#[^a-f0-9.:]#', '', strtolower( get_ip() ) );
+$port = isset( $_GET['p'] ) ? (int)( $_GET['p'] ) : 28770;
+$proto = isset( $_GET['v'] ) ? (int)( $_GET['v'] ) : 0;
+// ignore $_GET['guid32']
 
 // are we open for business?
 if ( !$settings['autoapprove'] )
-	exit( "automatic registration is closed" );
+	die( "automatic registration is closed" );
 
 // check bans
-if ( ip_in_list( $ip, $settings['bans_server'] ) !== false )
-	exit( "ERROR: your IP is blacklisted" );
+if ( ip_in_list( inet_pton($ip), $settings['bans_server'] ) !== false ) {
+	die( "ERROR: your IP is blacklisted" );
+}
 
 // check port
-if ( $port < 0 )
-	exit( "ERROR: port must not be negative" );
-elseif ( $port >= 65535 )
-	exit( "ERROR: port must be under 65535" );
+if ( $port < 0 ) {
+	die( "ERROR: port must not be negative" );
+} elseif ( $port >= 65535 ) {
+	die( "ERROR: port must be under 65535" );
+}
 
 // check socket?
 if ( $settings['check-socket'] || $settings['check-socket-force'] ) {
