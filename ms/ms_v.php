@@ -2,7 +2,7 @@
 include 'init.php';
 require_once MYBB_ROOT.'inc/functions_user.php';
 
-$ip = preg_replace( "#[^a-f0-9.:%/]#", "", strtolower( get_ip() ) );
+$ip = get_ip();
 $port = isset( $_GET['p'] ) ? (int)( $_GET['p'] ) : 28770;
 
 $id = isset( $_GET['i'] ) ? (int)( $_GET['i'] ) : 0;

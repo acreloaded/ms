@@ -2,10 +2,11 @@
 include 'init.php';
 require_once MYBB_ROOT.'inc/functions_user.php';
 
-$cip = isset( $_GET['a'] ) ? $_GET['a'] : '127.0.0.1';
-if ( !filter_var($cip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ) {
-	$cip = '::1';
+$cip_raw = isset( $_GET['a'] ) ? ip4to6( $_GET['a'] ) : '::1';
+if ( !filter_var($cip_raw, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ) {
+	$cip_raw = '::1';
 }
+$cip_raw = inet_pton( $cip_raw );
 // ignore $_GET['guid32']
 
 $aid = isset( $_GET['id'] ) ? (int)( $_GET['id'] ) : 0;
@@ -13,11 +14,11 @@ $auser = isset( $_GET['user'] ) ? (int)( $_GET['user'] ) : 0;
 
 // check bans...
 $verdict = '*a';
-if ( ip_in_list( $cip, $settings['allows'] ) !== false )
+if ( ip_in_list( $cip_raw, $settings['allows'] ) !== false )
 	$verdict = "*bw"; // IP blacklisted
-elseif ( ip_in_list( $cip, $settings['bans'] ) !== false )
+elseif ( ip_in_list( $cip_raw, $settings['bans'] ) !== false )
 	$verdict = "*bi"; // IP whitelisted
-elseif ( ip_in_list( $cip, $settings['mutes'] ) !== false )
+elseif ( ip_in_list( $cip_raw, $settings['mutes'] ) !== false )
 	$verdict = "*bm"; // Muted
 // else // unlisted...
 
@@ -29,7 +30,7 @@ if ( !$aid || !$auser )
 
 echo "\n";
 
-$ip = preg_replace( "#[^a-f0-9.:%/]#", "", strtolower( get_ip() ) );
+$ip = get_ip();
 $port = isset( $_GET['p'] ) ? (int)( $_GET['p'] ) : 28770;
 
 // are they unregistered?

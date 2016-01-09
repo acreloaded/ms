@@ -9,7 +9,7 @@ if ( $db->affected_rows() ) {
 }
 $db->delete_query( 'acrms_auth', '`time` < '.( time() - 30 ) );
 
-$ip = get_ip();
+$ip_raw = inet_pton( ip4to6( get_ip() ) );
 // ignore $_GET['build_defs']
 // ignore $_GET['guid32']
 
@@ -17,10 +17,10 @@ $ip = get_ip();
 $lines = array();
 
 // Show ban message
-$banned = ip_in_list( $ip, $settings['bans'] );
+$banned = ip_in_list( $ip_raw, $settings['bans'] );
 // Master-Server flags
 $msf = 0;
-if ( ip_in_list( $ip, $settings['allows'] ) !== false ) {
+if ( ip_in_list( $ip_raw, $settings['allows'] ) !== false ) {
 	// whitelisted flag
 	$msf |= 1;
 	$banned = false;
@@ -29,7 +29,7 @@ elseif ( $banned !== false ) {
 	// banned flag
 	$msf |= 2;
 }
-if ( ip_in_list( $ip, $settings['mutes'] ) !== false ) {
+if ( ip_in_list( $ip_raw, $settings['mutes'] ) !== false ) {
 	// muted flag
 	$msf |= 4;
 }

@@ -3,7 +3,7 @@ include 'init.php';
 
 $lines = array( 'List of IP Bans/Allows' );
 
-$ip = get_ip();
+$ip = ip4to6( get_ip() );
 $ip_raw = inet_pton( $ip );
 $lines[] = "Your IP is $ip";
 $lines[] = '';
@@ -27,7 +27,7 @@ function output_list( $title, $list ) {
 
 		// Range end
 		if ( $entry[0] != $entry[1] ) {
-			$msg .= ' to '.long2ip( $entry[1] );
+			$msg .= " to {$entry[1]}";
 		}
 
 		// Reason

@@ -1,7 +1,7 @@
 <?php
 include 'init.php';
 
-$ip = preg_replace( '#[^a-f0-9.:]#', '', strtolower( get_ip() ) );
+$ip = get_ip();
 $port = isset( $_GET['p'] ) ? (int)( $_GET['p'] ) : 28770;
 $proto = isset( $_GET['v'] ) ? (int)( $_GET['v'] ) : 0;
 // ignore $_GET['guid32']
@@ -11,7 +11,7 @@ if ( !$settings['autoapprove'] )
 	die( "automatic registration is closed" );
 
 // check bans
-if ( ip_in_list( inet_pton($ip), $settings['bans_server'] ) !== false ) {
+if ( ip_in_list( inet_pton( ip4to6( $ip ) ), $settings['bans_server'] ) !== false ) {
 	die( "ERROR: your IP is blacklisted" );
 }
 

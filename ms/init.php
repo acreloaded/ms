@@ -29,6 +29,7 @@ $settings['currentgame'] = 10000; // display only
 
 // IPv6 lists
 // array(left, right[, reason]),
+// array('::ffff:0000:0000', '::ffff:ffff:ffff', 'all IPv4 addresses'),
 $settings['allows'] = array(
 );
 $settings['bans'] = array(
@@ -44,14 +45,21 @@ function ip_in_range( $ip_raw, $range ) {
 	return $l <= $ip_raw && $ip_raw <= $r; // && strlen( $l ) == strlen( $ip_raw ) && strlen($r) == strlen($ip_raw)
 }
 
-function ip_in_list( $addr, $list ) {
-	$addr_raw = inet_pton( $addr );
-
+function ip_in_list( $addr_raw, $list ) {
 	foreach ( $list as $k => $range )
 		if ( ip_in_range( $addr_raw, $range ) )
 			return $k;
 
     return false;
+}
+
+function ip4to6 ($addr) {
+	if ( strpos($addr, ':') === false ) {
+		// Map IPv4 to IPv6
+		return "::ffff:$addr";
+	}
+	// Already IPv6
+	return $addr;
 }
 
 // Serverlist settings
