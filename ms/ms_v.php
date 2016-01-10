@@ -30,16 +30,15 @@ if ( !user_exists( $q['uid'] ) )
 // get the user's key
 $info = get_user( $q['uid'] );
 
-//$answer_required = hash_hmac('sha256', $q['nonce'], $info['acrms_key']);
+$answer_required = hash_hmac('sha256', $q['nonce'], $info['acrms_key']);
 
-if ( isset( $_GET['legacy'] ) || true ) {
-	// TODO: use new hashing algorithm
+if ( isset( $_GET['legacy'] ) ) {
 	$answer_required = sha1( "{$q['uid']}:{$info['acrms_key']}!{$q['nonce']}" );
 }
 
 if ( $answer == $answer_required ) {
 	// get the user's privilege
-	$priv = 0;
+	$priv = 'x';
 	if ( is_super_admin( $q['uid'] ) )
 		$priv = 3;
 	else {
@@ -48,10 +47,12 @@ if ( $answer == $answer_required ) {
 			$priv = 2;
 		elseif ( $user_perms['issupermod'] )
 			$priv = 1;
+		else // deban
+			$priv = 0;
 	}
 	// match
 	echo "*s{$priv}{$info['username']}"; // auth pass
 }
 else
 	// no match
-	echo "*d"; // auth mismatch
+	echo '*d'; // auth mismatch

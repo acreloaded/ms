@@ -54,14 +54,24 @@ if ( !user_exists( $auser ) )
 	die( "*f" ); // auth user not found
 
 // do auth
-$nonce = mt_rand( 0, 2147483647 ); // 31-bits because it's signed
+$nonce = openssl_random_pseudo_bytes(128);
+
+if ( isset( $_GET['legacy'] ) ) {
+    $nonce = (string)mt_rand( 0, 2147483647 ); // 31-bits because it's signed
+}
+
+$mybb->binary_fields['acrms_auth']['nonce'] = true;
 $db->insert_query( "acrms_auth", array(
 		"ip" => $ip,
 		"port" => $port,
 		"id" => $aid,
 		"time" => time(),
-		"nonce" => $nonce,
+		"nonce" => $db->escape_binary( $nonce ),
 		"uid" => $auser,
 	) );
 
-echo "*c".$nonce;
+if ( isset( $_GET['legacy'] ) ) {
+    die( "*c".$nonce );
+}
+
+echo '*c'.bin2hex($nonce);

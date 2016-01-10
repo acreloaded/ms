@@ -38,7 +38,7 @@ function acrms_install() {
 						`port` smallint(5) unsigned NOT NULL,
 						`id` int(10) unsigned NOT NULL,
 						`time` bigint(20) unsigned NOT NULL,
-						`nonce` int(11) NOT NULL,
+						`nonce` BINARY(128) NOT NULL,
 						`uid` int(10) unsigned NOT NULL,
 						PRIMARY KEY (`ip`,`port`,`id`)
 					) ENGINE=MEMORY DEFAULT CHARSET=latin1;" );

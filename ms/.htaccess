@@ -20,7 +20,7 @@ RewriteRule ^cube ms_c.php [L]
 # server handles
 RewriteRule ^reg/(\d+)/(\d{1,5})/(\d+)$ ms_r.php?v=$1&p=$2&guid32=$3 [L]
 RewriteRule ^reg/(\d+)/(\d{1,5})$ ms_r.php?v=$1&p=$2 [L]
-RewriteRule ^con/(\d{1,5})/([\d.]+)/(\d+)/(\d+)/(\d+)$ ms_a.php?p=$1&a=::ffff:$2&guid32=$3&i=$4&u=$5 [L]
+RewriteRule ^con/(\d{1,5})/([\d.]+)/(\d+)/(\d+)/(\d+)$ ms_a.php?p=$1&a=::ffff:$2&guid32=$3&i=$4&u=$5&legacy [L]
 RewriteRule ^con/(\d{1,5})/([\d.]+)/(\d+)$ ms_a.php?p=$1&a=::ffff:$2&guid32=$3 [L]
 RewriteRule ^ver/(\d{1,5})/(\d+)/([\da-f]+)$ ms_v.php?p=$1&i=$2&a=$3&legacy [L]
 RewriteRule ^register server_update.txt [L] # phase-out old <= 2.5.x servers
