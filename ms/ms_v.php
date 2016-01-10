@@ -7,6 +7,8 @@ $port = isset( $_GET['p'] ) ? (int)( $_GET['p'] ) : 28770;
 
 $id = isset( $_GET['i'] ) ? (int)( $_GET['i'] ) : 0;
 $answer = isset( $_GET['a'] ) ? $_GET['a'] : '';
+$cnonce = isset( $_GET['c'] ) ? hex2bin( preg_replace( '#[^0-9a-f]#', '', $_GET['c'] ) ) : '';
+$cnonce = str_pad( $cnonce, 48, "\0" );
 
 // are they unregistered?
 $q = $db->fetch_array( $db->simple_select( "acrms_servers", "COUNT(*) AS n, authtime", "ip='$ip' AND port=$port" ) );
@@ -30,7 +32,7 @@ if ( !user_exists( $q['uid'] ) )
 // get the user's key
 $info = get_user( $q['uid'] );
 
-$answer_required = hash_hmac('sha256', $q['nonce'], $info['acrms_key']);
+$answer_required = hash_hmac('sha256', $cnonce.$q['nonce'], $info['acrms_key']);
 
 if ( isset( $_GET['legacy'] ) ) {
 	$answer_required = sha1( "{$q['uid']}:{$info['acrms_key']}!{$q['nonce']}" );
