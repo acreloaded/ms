@@ -50,7 +50,7 @@ function ip_in_list( $addr_raw, $list ) {
 		if ( ip_in_range( $addr_raw, $range ) )
 			return $k;
 
-    return false;
+	return false;
 }
 
 function ip4to6 ($addr) {

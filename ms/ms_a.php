@@ -57,7 +57,7 @@ if ( !user_exists( $auser ) )
 $nonce = openssl_random_pseudo_bytes(128);
 
 if ( isset( $_GET['legacy'] ) ) {
-    $nonce = (string)mt_rand( 0, 2147483647 ); // 31-bits because it's signed
+	$nonce = (string)mt_rand( 0, 2147483647 ); // 31-bits because it's signed
 }
 
 $mybb->binary_fields['acrms_auth']['nonce'] = true;
@@ -71,7 +71,7 @@ $db->insert_query( "acrms_auth", array(
 	) );
 
 if ( isset( $_GET['legacy'] ) ) {
-    die( "*c".$nonce );
+	die( "*c".$nonce );
 }
 
 echo '*c'.bin2hex($nonce);
