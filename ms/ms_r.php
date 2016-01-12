@@ -63,12 +63,21 @@ if ( $renew ) {
 // check for errors...
 $error = false;
 // check protocol
-if ( $proto < $settings['minprotocol'] ) $error = "!!! UPDATE !!! You must update to a newer version!";
+if ( $proto < $settings['minprotocol'] )
+	$error = "!!! UPDATE !!! You must update to a newer version!";
 // check socket result
 
 // output the final answer
 $act = $renew ? "renewed" : "registered";
-if ( $error !== false ) $msg = "ERROR: $error - server not $act";
-elseif ( $failures ) $msg = "server $act -- WARNING $failures/{$settings['check-socket']} unreachable (UDP $port/".( $port + 1 ).")";
-else $msg = "server $act".( ( $renew || $settings['check-socket'] || ( $settings['check-socket-force'] && $sock ) ) ? "" : " -- (no error) reminder to check port-forward/firewall" );
+if ( $error !== false ) {
+	$msg = "ERROR: $error - server not $act";
+} elseif ( $failures ) {
+	$msg = "server $act -- WARNING $failures/{$settings['check-socket']} unreachable (UDP $port/".( $port + 1 ).")";
+} else {
+	$msg = "server $act";
+	if ( $proto < $settings['curprotocol'] )
+		$msg .= ' (!!! UPDATE !!! new version available)';
+	if ( !( $renew || $settings['check-socket'] || ( $settings['check-socket-force'] && $sock ) ) )
+		$msg .= " -- (no error) reminder to check port-forward/firewall";
+}
 echo $msg;

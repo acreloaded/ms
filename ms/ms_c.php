@@ -36,7 +36,7 @@ if ( ip_in_list( $ip_raw, $settings['mutes'] ) !== false ) {
 $lines[] = "masterserver_flags $msf";
 
 // Current version
-$lines[] = "current_version {$settings['currentgame']} {$settings['minprotocol']}";
+$lines[] = "current_version {$settings['currentgame']} {$settings['curprotocol']}";
 
 // MS messages
 $lines[] = 'echo "'."\f".'2Welcome to the ACR Master Server!"';

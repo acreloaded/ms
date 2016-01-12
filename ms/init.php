@@ -25,7 +25,8 @@ $settings['check-socket'] = 0; // check server with UDP sockets or not (maximum 
 $settings['check-socket-force'] = false; // force a check if the above is 0
 
 $settings['minprotocol'] = 138; // enforced
-$settings['currentgame'] = 10000; // display only
+$settings['curprotocol'] = 140; // notify when server owners' protocols are under this version
+$settings['currentgame'] = 20603; // notify clients when their client is under this version
 
 // IPv6 lists
 // array(left, right[, reason]),
@@ -69,5 +70,5 @@ $settings['translations'] = array(
 );
 $settings['weights'] = array(
 	// ip:port => weight
-	'159.203.33.125:28770' => 1337, // 1000 is enough
+	'159.203.33.125:28770' => 1, // 1000 puts it to the top
 );
