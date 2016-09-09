@@ -80,7 +80,7 @@ if ( $banned !== false && isset($settings['bans'][$banned][2]) ) {
 	*/
 
 	// Show hidden count
-	$lines[] = '// '.( $total - $servs ).' hidden';
+	$lines[] = '// ~'.( $total - $servs ).' hidden';
 }
 
 // Write output
