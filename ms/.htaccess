@@ -1,3 +1,5 @@
+Options +Indexes
+
 ErrorDocument 403 "403 You don't have clearance"
 ErrorDocument 404 "404 I lost it!"
 ErrorDocument 500 "500 Stupid failure"

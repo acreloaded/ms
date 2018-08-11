@@ -21,7 +21,7 @@ if ( !$db->table_exists( 'acrms_servers' ) ) {
 
 // Global settings
 $settings['autoapprove'] = true; // servers can be registered
-$settings['check-socket'] = 0; // check server with UDP sockets or not (maximum failures or 0)
+$settings['check-socket'] = 3; // check server with UDP sockets or not (maximum failures or 0)
 $settings['check-socket-force'] = false; // force a check if the above is 0
 
 $settings['minprotocol'] = 138; // enforced
@@ -66,9 +66,9 @@ function ip4to6 ($addr) {
 // Serverlist settings
 $settings['translations'] = array(
 	// ip => domain
-	'159.203.33.125' => 'play.acr.victorz.ca',
+	'159.203.27.28' => 'play.acr.victorz.ca',
 );
 $settings['weights'] = array(
 	// ip:port => weight
-	'159.203.33.125:28770' => 1, // 1000 puts it to the top
+	'159.203.27.28:28770' => 2, // 1000 would put it to the top
 );

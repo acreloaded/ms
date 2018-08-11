@@ -47,7 +47,7 @@ if ( $renew ) {
 	$db->update_query( "acrms_servers", array(
 			"time" => time(),
 			"proto" => $proto,
-			"failures" => $sock,
+			"failures" => $failures,
 		), "ip='$ip' AND port=$port" );
 } else { // register it
 	$cache->update( "acrms_servs", (int)$cache->read( "acrms_servs" ) + 1 );
@@ -57,6 +57,7 @@ if ( $renew ) {
 			"time" => time(),
 			"proto" => $proto,
 			"failures" => ( $failures = ( ( $sock || $settings['check-socket-force'] ) ? 0 : 255 ) ),
+			"authtime" => 0,
 		) );
 }
 
