@@ -4,6 +4,7 @@ include 'init.php';
 $ip = get_ip();
 $port = isset( $_GET['p'] ) ? (int)( $_GET['p'] ) : 28770;
 $proto = isset( $_GET['v'] ) ? (int)( $_GET['v'] ) : 0;
+$gameVersion = isset( $_GET['g'] ) ? (int)( $_GET['g'] ) : 0;
 // ignore $_GET['guid32']
 
 // are we open for business?
@@ -68,17 +69,23 @@ if ( $proto < $settings['minprotocol'] )
 	$error = "!!! UPDATE !!! You must update to a newer version!";
 // check socket result
 
+if ( $proto < $settings['curprotocol'] )
+	$update = ' (!!! UPDATE !!! new version available)';
+elseif ( $gameVersion < $settings['currentgame'] )
+	$update = ' (latest game version is '.$settings['currentgame'].')';
+else
+	$update = '';
+
 // output the final answer
 $act = $renew ? "renewed" : "registered";
 if ( $error !== false ) {
 	$msg = "ERROR: $error - server not $act";
-} elseif ( $failures ) {
-	$msg = "server $act -- WARNING $failures/{$settings['check-socket']} unreachable (UDP $port/".( $port + 1 ).")";
 } else {
-	$msg = "server $act";
-	if ( $proto < $settings['curprotocol'] )
-		$msg .= ' (!!! UPDATE !!! new version available)';
-	if ( !( $renew || $settings['check-socket'] || ( $settings['check-socket-force'] && $sock ) ) )
-		$msg .= " -- (no error) reminder to check port-forward/firewall";
+	$msg = "server $act$update";
+
+	if ( $failures )
+		$msg .= " -- WARNING $failures/{$settings['check-socket']} unreachable (UDP $port/".( $port + 1 ).")";
+	elseif ( !( $renew || $settings['check-socket'] || ( $settings['check-socket-force'] && $sock ) ) )
+		$msg .= " -- port-forward/firewall not checked";
 }
 echo $msg;

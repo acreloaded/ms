@@ -26,7 +26,7 @@ $settings['check-socket-force'] = false; // force a check if the above is 0
 
 $settings['minprotocol'] = 138; // enforced
 $settings['curprotocol'] = 140; // notify when server owners' protocols are under this version
-$settings['currentgame'] = 20603; // notify clients when their client is under this version
+$settings['currentgame'] = 20700; // notify users behind this version
 
 // IPv6 lists
 // array(left, right[, reason]),
