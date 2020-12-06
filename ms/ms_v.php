@@ -37,12 +37,6 @@ $info = get_user($q['uid']);
 
 $answer_required = hash_hmac('sha256', $cnonce . $q['nonce'], $info['acrms_key']);
 
-if (isset($_GET['legacy'])) {
-    // quickly remove trailing \0 characters
-    $nonce_trimmed = (int) $q['nonce'];
-    $answer_required = sha1("{$q['uid']}:{$info['acrms_key']}!$nonce_trimmed");
-}
-
 if ($answer == $answer_required) {
     // get the user's privilege
     $priv = 'x';
