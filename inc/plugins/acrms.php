@@ -32,7 +32,7 @@ function acrms_install() {
 						`failures` tinyint(4) unsigned NOT NULL,
 						`authtime` bigint(20) unsigned NOT NULL,
 						PRIMARY KEY (`ip`,`port`)
-					) ENGINE=MEMORY DEFAULT CHARSET=latin1;" );
+					) ENGINE=MyISAM DEFAULT CHARSET=ascii;" );
 	$db->write_query( "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."acrms_auth` (
 						`ip` varchar(45) NOT NULL,
 						`port` smallint(5) unsigned NOT NULL,
@@ -41,7 +41,7 @@ function acrms_install() {
 						`nonce` BINARY(128) NOT NULL,
 						`uid` int(10) unsigned NOT NULL,
 						PRIMARY KEY (`ip`,`port`,`id`)
-					) ENGINE=MEMORY DEFAULT CHARSET=latin1;" );
+					) ENGINE=MEMORY DEFAULT CHARSET=ascii;" );
 	// Key column
 	$db->add_column( "users", "acrms_key", "varchar(40) NOT NULL" );
 }
