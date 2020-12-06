@@ -4,7 +4,7 @@ include 'init.php';
 // JSONP start
 if (isset($_GET['c'])) {
     // prepend \r\n or /**/ for security reasons
-    echo '\r\n' . $_GET['c'] . '(';
+    echo "\r\n" . $_GET['c'] . '(';
 }
 
 // Ensure there is a query
