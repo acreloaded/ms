@@ -15,9 +15,9 @@ $auser = isset($_GET['u']) ? (int) ($_GET['u']) : 0;
 // check bans...
 $verdict = '*a';
 if (ip_in_list($cip_raw, $settings['allows']) !== false) {
-    $verdict = "*bw"; // IP blacklisted
+    $verdict = "*bw"; // IP whitelisted
 } elseif (ip_in_list($cip_raw, $settings['bans']) !== false) {
-    $verdict = "*bi"; // IP whitelisted
+    $verdict = "*bi"; // IP blacklisted
 } elseif (ip_in_list($cip_raw, $settings['mutes']) !== false) {
     $verdict = "*bm"; // Muted
 }
