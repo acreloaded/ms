@@ -25,8 +25,11 @@ if ($port < 0) {
 }
 
 // check socket?
-if ($proto >= $settings['minprotocol'] // && $proto <= $settings['curprotocol']
-    && ($settings['check-socket'] || $settings['check-socket-force'])) {
+$sock_check = $proto >= $settings['minprotocol']
+    && $proto <= $settings['curprotocol']
+    && ($settings['check-socket'] || $settings['check-socket-force']);
+
+if ($sock_check) {
     $sock = false;
 
     if ($fsock = @fsockopen("udp://$ip", $port + 1, $errno, $errstr, 3)) {
@@ -44,14 +47,14 @@ if ($proto >= $settings['minprotocol'] // && $proto <= $settings['curprotocol']
     // bypass the check
     $sock = true;
 }
+$sock_good = $sock || $settings['check-socket-force'];
 
 // are we renewing?
 $renew = $db->fetch_array($db->simple_select("acrms_servers", "failures", "ip='$ip' AND port=$port"));
 if ($renew) {
-    $failures = (($sock || $settings['check-socket-force']) ? 0 : $renew['failures'] + 1);
-    if ($failures != 255 && $failures > $settings['check-socket']) {
-        $failures = $settings['check-socket'];
-    }
+    $failures = ($sock_good ? 0 :
+        ($renew['failures'] == 255 ? 255
+            : min($renew['failures'] + 1, $settings['check-socket'])));
 
     $db->update_query("acrms_servers", array(
         "time" => time(),
@@ -65,7 +68,7 @@ if ($renew) {
         "port" => $port,
         "time" => time(),
         "proto" => $proto,
-        "failures" => ($failures = (($sock || $settings['check-socket-force']) ? 0 : 255)),
+        "failures" => ($failures = ($sock_good ? 0 : 255)),
         "authtime" => 0,
     ));
 }
@@ -77,25 +80,26 @@ if ($proto < $settings['minprotocol']) {
     $error = "!!! UPDATE !!! You must update to a newer version!";
 }
 
-if ($proto < $settings['curprotocol']) {
-    $update = ' (!!! UPDATE !!! new version available)';
-} elseif ($gameVersion < $settings['currentgame']) {
-    $update = ' (latest game version is ' . $settings['currentgame'] . ')';
-} else {
-    $update = '';
-}
-
 // output the final answer
 $act = $renew ? "renewed" : "registered";
 if ($error !== false) {
     $msg = "ERROR: $error - server not $act";
 } else {
-    $msg = "server $act$update";
+    $msg = "server $act";
+
+    if ($proto < $settings['curprotocol']) {
+        $msg .= ' (!!! UPDATE !!! new version available)';
+    } elseif ($gameVersion < $settings['currentgame']) {
+        $msg .= ' (latest game version is ' . $settings['currentgame'] . ')';
+    }
 
     // check socket result
-    if ($failures) {
-        $msg .= " -- WARNING $failures/{$settings['check-socket']} unreachable (UDP $port/" . ($port + 1) . ")";
-    } elseif (!($renew || $settings['check-socket'] || ($settings['check-socket-force'] && $sock))) {
+    if ($failures >= ($settings['check-socket'] || 255)) {
+        $msg .= " -- ERROR {$settings['check-socket']}/{$settings['check-socket']} unreachable (UDP $port/" . ($port + 1) . ")";
+    } else if (!$sock) {
+        $failures_show = (!$failures || $failures == 255) ? '' : " $failures/{$settings['check-socket']}";
+        $msg .= " -- WARNING$failures_show unreachable (UDP $port/" . ($port + 1) . ")";
+    } elseif (!$sock_check && !$renew) {
         $msg .= " -- port-forward/firewall not checked";
     }
 }
