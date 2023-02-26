@@ -88,9 +88,9 @@ if ($error !== false) {
     $msg = "server $act";
 
     if ($proto < $settings['curprotocol']) {
-        $msg .= ' (!!! UPDATE !!! new version available)';
+        $msg .= ' (!!! UPDATE !!! new protocol ' . $settings['curprotocol'] . ' version ' . $settings['currentgame'] . ')';
     } elseif ($gameVersion < $settings['currentgame']) {
-        $msg .= ' (latest game version is ' . $settings['currentgame'] . ')';
+        $msg .= ' (!!! UPDATE !!! new version ' . $settings['currentgame'] . ')';
     }
 
     // check socket result
