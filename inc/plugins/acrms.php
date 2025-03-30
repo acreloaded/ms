@@ -14,7 +14,7 @@ function acrms_info() {
 		"website"       => "https://acr.victorz.ca",
 		"author"        => "Victor (AssaultCube Reloaded Task Force)",
 		"authorsite"    => "https://victorz.ca",
-		"version"       => "1.0.0",
+		"version"       => "1.0.1",
 		//"guid"          => "6075380637e266aecd9b00a3aa99ce04",
 		"compatibility" => "1*",
 	);
