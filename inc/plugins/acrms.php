@@ -135,15 +135,9 @@ function acrms_usercp_start() {
 		// Verify incoming POST request
 		verify_post_check( $mybb->input['my_post_key'] );
 
-		// Use some "random" data to build a new key
-		$acrms_authkey = openssl_random_pseudo_bytes( 512 );
-		$acrms_authkey .= $_SERVER['REQUEST_TIME'];
-		$acrms_authkey .= $_SERVER['HTTP_USER_AGENT'];
-		$acrms_authkey .= $_SERVER['LOCAL_ADDR'];
-		$acrms_authkey .= $_SERVER['LOCAL_PORT'];
-		$acrms_authkey .= $_SERVER['REMOTE_ADDR'];
-		$acrms_authkey .= $_SERVER['REMOTE_PORT'];
-		$acrms_authkey = sha1( uniqid( "", true ) . $acrms_authkey );
+		// Build a new random key
+		$acrms_authkey = openssl_random_pseudo_bytes( 30 );
+		$acrms_authkey = strtr(base64_encode($acrms_authkey), '+/', '-_');
 		$db->update_query( "users", array( "acrms_key" => $acrms_authkey ), "uid='{$mybb->user['uid']}'" );
 		redirect( "usercp.php?action=acrms", "Your ACR Master-Server authkey was regenerated!" );
 	}
