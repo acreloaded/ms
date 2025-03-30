@@ -148,7 +148,7 @@ function acrms_usercp_start() {
 		redirect( "usercp.php?action=acrms", "Your ACR Master-Server authkey was regenerated!" );
 	}
 	else if ( $mybb->input['action'] == "acrms" ) {
-			global $templates, $footer, $header, $navigation, $headerinclude, $themes, $usercpnav;
+			global $templates, $lang, $theme, $errors, $footer, $header, $navigation, $headerinclude, $themes, $usercpnav;
 			// Make navigation
 			add_breadcrumb( $lang->nav_usercp, "usercp.php" );
 			add_breadcrumb( 'ACR Master-Server Auth' );
