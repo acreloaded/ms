@@ -43,7 +43,7 @@ function acrms_install() {
 						PRIMARY KEY (`ip`,`port`,`id`)
 					) ENGINE=MEMORY DEFAULT CHARSET=ascii;" );
 	// Key column
-	$db->add_column( "users", "acrms_key", "varchar(40) NOT NULL" );
+	$db->add_column( "users", "acrms_key", "varchar(40) NOT NULL DEFAULT ''" );
 }
 
 function acrms_is_installed() {
